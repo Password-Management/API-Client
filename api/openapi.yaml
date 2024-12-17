@@ -1,0 +1,132 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: sharmavivek1709@gmail.com
+    name: Vivek Sharma
+  description: API's cerate customer in the database
+  title: Customer Creation API
+  version: 1.0.0
+servers:
+- url: /
+tags:
+- description: Operations related to Customer
+  name: Customer
+paths:
+  /customer:
+    post:
+      requestBody:
+        content:
+          application/json:
+            example:
+              email: vivek@gmail.com
+              name: vviveksharma
+              plan: Pro Plan
+              algorithm: RSA
+              platform: Linux
+            schema:
+              $ref: '#/components/schemas/_customer_post_request'
+        description: User login credentials
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_customer_post_200_response'
+          description: Successful registeration
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_customer_post_409_response'
+          description: CONFLICT (User already exists)
+      summary: Create a new custmer in the database
+      tags:
+      - Customer
+  /get-results:
+    get:
+      parameters:
+      - description: The search keyword
+        explode: true
+        in: query
+        name: masterId
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_get_results_get_200_response'
+          description: Success
+      summary: API to get counts of votes/ Winner of the election
+      tags:
+      - Customer
+components:
+  schemas:
+    _customer_post_200_response:
+      example:
+        message: Customer added successfully with email user@example.com
+      properties:
+        message:
+          example: Customer added successfully with email user@example.com
+          type: string
+      type: object
+    _customer_post_409_response:
+      example:
+        token: User already exists
+      properties:
+        token:
+          example: User already exists
+          type: string
+      type: object
+    _get_results_get_200_response:
+      example:
+        master_id: cd95d3a3-0ffb-4e24-9db9-4d5df3bb228d
+        name: vviveksharma
+        plan: RSA
+        platform: Linux
+        emai: vivek@gmail.com
+        algorithm: RSA
+      properties:
+        emai:
+          example: vivek@gmail.com
+          type: string
+        name:
+          example: vviveksharma
+          type: string
+        plan:
+          example: RSA
+          type: string
+        algorithm:
+          example: RSA
+          type: string
+        platform:
+          example: Linux
+          type: string
+        master_id:
+          example: cd95d3a3-0ffb-4e24-9db9-4d5df3bb228d
+          type: string
+      type: object
+    _customer_post_request:
+      properties:
+        email:
+          type: string
+        name:
+          format: email
+          type: string
+        plan:
+          type: string
+        algorithm:
+          type: string
+        platform:
+          type: string
+      required:
+      - algorithm
+      - email
+      - name
+      - plan
+      - platform
+      type: object
