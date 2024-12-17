@@ -31,6 +31,28 @@ paths:
               schema:
                 $ref: '#/components/schemas/_customer_get_200_response'
           description: Successful retrieval
+          headers:
+            Access-Control-Allow-Origin:
+              description: Allowed origins for CORS
+              explode: false
+              schema:
+                example: '*'
+                type: string
+              style: simple
+            Access-Control-Allow-Methods:
+              description: Allowed HTTP methods
+              explode: false
+              schema:
+                example: "GET, POST, PUT, DELETE"
+                type: string
+              style: simple
+            Access-Control-Allow-Headers:
+              description: Allowed headers for CORS
+              explode: false
+              schema:
+                example: "Content-Type, Authorization"
+                type: string
+              style: simple
       summary: Get customer details using the MasterId
       tags:
       - Customer
@@ -55,12 +77,42 @@ paths:
               schema:
                 $ref: '#/components/schemas/_customer_post_200_response'
           description: Successful registration
+          headers:
+            Access-Control-Allow-Origin:
+              description: Allowed origins for CORS
+              explode: false
+              schema:
+                example: '*'
+                type: string
+              style: simple
+            Access-Control-Allow-Methods:
+              description: Allowed HTTP methods
+              explode: false
+              schema:
+                example: "GET, POST, PUT, DELETE"
+                type: string
+              style: simple
+            Access-Control-Allow-Headers:
+              description: Allowed headers for CORS
+              explode: false
+              schema:
+                example: "Content-Type, Authorization"
+                type: string
+              style: simple
         "409":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/_customer_post_409_response'
           description: Conflict - User already exists
+          headers:
+            Access-Control-Allow-Origin:
+              description: Allowed origins for CORS
+              explode: false
+              schema:
+                example: '*'
+                type: string
+              style: simple
       summary: Create a new customer in the database
       tags:
       - Customer

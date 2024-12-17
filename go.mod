@@ -2,9 +2,7 @@ module github.com/Password-Management/API-Client
 
 go 1.18
 
-require (
-	github.com/stretchr/testify v1.10.0
-)
+require github.com/stretchr/testify v1.10.0
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
