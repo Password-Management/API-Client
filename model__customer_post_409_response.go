@@ -1,7 +1,7 @@
 /*
 Customer Creation API
 
-API's cerate customer in the database
+APIs to manage customers in the database.
 
 API version: 1.0.0
 Contact: sharmavivek1709@gmail.com
@@ -20,7 +20,7 @@ var _ MappedNullable = &CustomerPost409Response{}
 
 // CustomerPost409Response struct for CustomerPost409Response
 type CustomerPost409Response struct {
-	Token *string `json:"token,omitempty"`
+	Message *string `json:"message,omitempty"`
 }
 
 // NewCustomerPost409Response instantiates a new CustomerPost409Response object
@@ -40,36 +40,36 @@ func NewCustomerPost409ResponseWithDefaults() *CustomerPost409Response {
 	return &this
 }
 
-// GetToken returns the Token field value if set, zero value otherwise.
-func (o *CustomerPost409Response) GetToken() string {
-	if o == nil || IsNil(o.Token) {
+// GetMessage returns the Message field value if set, zero value otherwise.
+func (o *CustomerPost409Response) GetMessage() string {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
-	return *o.Token
+	return *o.Message
 }
 
-// GetTokenOk returns a tuple with the Token field value if set, nil otherwise
+// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CustomerPost409Response) GetTokenOk() (*string, bool) {
-	if o == nil || IsNil(o.Token) {
+func (o *CustomerPost409Response) GetMessageOk() (*string, bool) {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
-	return o.Token, true
+	return o.Message, true
 }
 
-// HasToken returns a boolean if a field has been set.
-func (o *CustomerPost409Response) HasToken() bool {
-	if o != nil && !IsNil(o.Token) {
+// HasMessage returns a boolean if a field has been set.
+func (o *CustomerPost409Response) HasMessage() bool {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
 	return false
 }
 
-// SetToken gets a reference to the given string and assigns it to the Token field.
-func (o *CustomerPost409Response) SetToken(v string) {
-	o.Token = &v
+// SetMessage gets a reference to the given string and assigns it to the Message field.
+func (o *CustomerPost409Response) SetMessage(v string) {
+	o.Message = &v
 }
 
 func (o CustomerPost409Response) MarshalJSON() ([]byte, error) {
@@ -82,8 +82,8 @@ func (o CustomerPost409Response) MarshalJSON() ([]byte, error) {
 
 func (o CustomerPost409Response) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Token) {
-		toSerialize["token"] = o.Token
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
 	}
 	return toSerialize, nil
 }

@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 .travis.yml
 README.md
 api/openapi.yaml
@@ -7,17 +6,16 @@ api_customer.go
 client.go
 configuration.go
 docs/CustomerAPI.md
+docs/CustomerGet200Response.md
 docs/CustomerPost200Response.md
 docs/CustomerPost409Response.md
 docs/CustomerPostRequest.md
-docs/GetResultsGet200Response.md
 git_push.sh
 go.mod
 go.sum
+model__customer_get_200_response.go
 model__customer_post_200_response.go
 model__customer_post_409_response.go
 model__customer_post_request.go
-model__get_results_get_200_response.go
 response.go
-test/api_customer_test.go
 utils.go

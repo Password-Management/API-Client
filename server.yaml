@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Customer Creation API
-  description: API's cerate customer in the database
+  description: APIs to manage customers in the database.
   version: 1.0.0
   contact:
     name: Vivek Sharma
@@ -9,14 +9,14 @@ info:
 
 tags:
   - name: Customer
-    description: Operations related to Customer
+    description: Operations related to customers.
 
 paths:
   /customer:
     post:
-      summary: Create a new custmer in the database
+      summary: Create a new customer in the database
       requestBody:
-        description: User login credentials
+        description: Customer details
         required: true
         content:
           application/json:
@@ -25,9 +25,9 @@ paths:
               properties:
                 email:
                   type: string
+                  format: email
                 name:
                   type: string
-                  format: email
                 plan:
                   type: string
                 algorithm:
@@ -46,12 +46,11 @@ paths:
               plan: Pro Plan
               algorithm: RSA
               platform: Linux
-
       tags:
         - Customer
       responses:
         "200":
-          description: Successful registeration
+          description: Successful registration
           content:
             application/json:
               schema:
@@ -59,40 +58,38 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: Customer added successfully with email user@example.com
-
+                    example: Customer added successfully with email vivek@gmail.com
         "409":
-          description: CONFLICT (User already exists)
+          description: Conflict - User already exists
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  token:
+                  message:
                     type: string
                     example: User already exists
 
-  /get-results:
     get:
-      summary: API to get counts of votes/ Winner of the election
+      summary: Get customer details using the MasterId
       parameters:
         - name: masterId
           in: query
           required: true
           schema:
             type: string
-          description: The search keyword
+          description: The Master ID of the customer
       tags:
         - Customer
       responses:
         "200":
-          description: Success
+          description: Successful retrieval
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  emai:
+                  email:
                     type: string
                     example: vivek@gmail.com
                   name:
@@ -100,7 +97,7 @@ paths:
                     example: vviveksharma
                   plan:
                     type: string
-                    example: RSA
+                    example: Pro Plan
                   algorithm:
                     type: string
                     example: RSA

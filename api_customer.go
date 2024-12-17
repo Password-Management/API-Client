@@ -1,7 +1,7 @@
 /*
 Customer Creation API
 
-API's cerate customer in the database
+APIs to manage customers in the database.
 
 API version: 1.0.0
 Contact: sharmavivek1709@gmail.com
@@ -23,13 +23,121 @@ import (
 // CustomerAPIService CustomerAPI service
 type CustomerAPIService service
 
+type ApiCustomerGetRequest struct {
+	ctx context.Context
+	ApiService *CustomerAPIService
+	masterId *string
+}
+
+// The Master ID of the customer
+func (r ApiCustomerGetRequest) MasterId(masterId string) ApiCustomerGetRequest {
+	r.masterId = &masterId
+	return r
+}
+
+func (r ApiCustomerGetRequest) Execute() (*CustomerGet200Response, *http.Response, error) {
+	return r.ApiService.CustomerGetExecute(r)
+}
+
+/*
+CustomerGet Get customer details using the MasterId
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiCustomerGetRequest
+*/
+func (a *CustomerAPIService) CustomerGet(ctx context.Context) ApiCustomerGetRequest {
+	return ApiCustomerGetRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return CustomerGet200Response
+func (a *CustomerAPIService) CustomerGetExecute(r ApiCustomerGetRequest) (*CustomerGet200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *CustomerGet200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.CustomerGet")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/customer"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.masterId == nil {
+		return localVarReturnValue, nil, reportError("masterId is required and must be specified")
+	}
+
+	parameterAddToHeaderOrQuery(localVarQueryParams, "masterId", r.masterId, "form", "")
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiCustomerPostRequest struct {
 	ctx context.Context
 	ApiService *CustomerAPIService
 	customerPostRequest *CustomerPostRequest
 }
 
-// User login credentials
+// Customer details
 func (r ApiCustomerPostRequest) CustomerPostRequest(customerPostRequest CustomerPostRequest) ApiCustomerPostRequest {
 	r.customerPostRequest = &customerPostRequest
 	return r
@@ -40,7 +148,7 @@ func (r ApiCustomerPostRequest) Execute() (*CustomerPost200Response, *http.Respo
 }
 
 /*
-CustomerPost Create a new custmer in the database
+CustomerPost Create a new customer in the database
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCustomerPostRequest
@@ -126,114 +234,6 @@ func (a *CustomerAPIService) CustomerPostExecute(r ApiCustomerPostRequest) (*Cus
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiGetResultsGetRequest struct {
-	ctx context.Context
-	ApiService *CustomerAPIService
-	masterId *string
-}
-
-// The search keyword
-func (r ApiGetResultsGetRequest) MasterId(masterId string) ApiGetResultsGetRequest {
-	r.masterId = &masterId
-	return r
-}
-
-func (r ApiGetResultsGetRequest) Execute() (*GetResultsGet200Response, *http.Response, error) {
-	return r.ApiService.GetResultsGetExecute(r)
-}
-
-/*
-GetResultsGet API to get counts of votes/ Winner of the election
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetResultsGetRequest
-*/
-func (a *CustomerAPIService) GetResultsGet(ctx context.Context) ApiGetResultsGetRequest {
-	return ApiGetResultsGetRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-//  @return GetResultsGet200Response
-func (a *CustomerAPIService) GetResultsGetExecute(r ApiGetResultsGetRequest) (*GetResultsGet200Response, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *GetResultsGet200Response
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.GetResultsGet")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/get-results"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.masterId == nil {
-		return localVarReturnValue, nil, reportError("masterId is required and must be specified")
-	}
-
-	parameterAddToHeaderOrQuery(localVarQueryParams, "masterId", r.masterId, "form", "")
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

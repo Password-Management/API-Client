@@ -4,16 +4,16 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CustomerPost**](CustomerAPI.md#CustomerPost) | **Post** /customer | Create a new custmer in the database
-[**GetResultsGet**](CustomerAPI.md#GetResultsGet) | **Get** /get-results | API to get counts of votes/ Winner of the election
+[**CustomerGet**](CustomerAPI.md#CustomerGet) | **Get** /customer | Get customer details using the MasterId
+[**CustomerPost**](CustomerAPI.md#CustomerPost) | **Post** /customer | Create a new customer in the database
 
 
 
-## CustomerPost
+## CustomerGet
 
-> CustomerPost200Response CustomerPost(ctx).CustomerPostRequest(customerPostRequest).Execute()
+> CustomerGet200Response CustomerGet(ctx).MasterId(masterId).Execute()
 
-Create a new custmer in the database
+Get customer details using the MasterId
 
 ### Example
 
@@ -24,11 +24,75 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/Password-Management/API-Client"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
 )
 
 func main() {
-	customerPostRequest := *openapiclient.NewCustomerPostRequest("Email_example", "Name_example", "Plan_example", "Algorithm_example", "Platform_example") // CustomerPostRequest | User login credentials
+	masterId := "masterId_example" // string | The Master ID of the customer
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CustomerAPI.CustomerGet(context.Background()).MasterId(masterId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomerAPI.CustomerGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CustomerGet`: CustomerGet200Response
+	fmt.Fprintf(os.Stdout, "Response from `CustomerAPI.CustomerGet`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCustomerGetRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **masterId** | **string** | The Master ID of the customer | 
+
+### Return type
+
+[**CustomerGet200Response**](CustomerGet200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CustomerPost
+
+> CustomerPost200Response CustomerPost(ctx).CustomerPostRequest(customerPostRequest).Execute()
+
+Create a new customer in the database
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	customerPostRequest := *openapiclient.NewCustomerPostRequest("Email_example", "Name_example", "Plan_example", "Algorithm_example", "Platform_example") // CustomerPostRequest | Customer details
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -53,7 +117,7 @@ Other parameters are passed through a pointer to a apiCustomerPostRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **customerPostRequest** | [**CustomerPostRequest**](CustomerPostRequest.md) | User login credentials | 
+ **customerPostRequest** | [**CustomerPostRequest**](CustomerPostRequest.md) | Customer details | 
 
 ### Return type
 
@@ -66,70 +130,6 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetResultsGet
-
-> GetResultsGet200Response GetResultsGet(ctx).MasterId(masterId).Execute()
-
-API to get counts of votes/ Winner of the election
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/Password-Management/API-Client"
-)
-
-func main() {
-	masterId := "masterId_example" // string | The search keyword
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CustomerAPI.GetResultsGet(context.Background()).MasterId(masterId).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CustomerAPI.GetResultsGet``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetResultsGet`: GetResultsGet200Response
-	fmt.Fprintf(os.Stdout, "Response from `CustomerAPI.GetResultsGet`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetResultsGetRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **masterId** | **string** | The search keyword | 
-
-### Return type
-
-[**GetResultsGet200Response**](GetResultsGet200Response.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

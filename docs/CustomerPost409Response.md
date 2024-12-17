@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Token** | Pointer to **string** |  | [optional] 
+**Message** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -25,30 +25,30 @@ NewCustomerPost409ResponseWithDefaults instantiates a new CustomerPost409Respons
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetToken
+### GetMessage
 
-`func (o *CustomerPost409Response) GetToken() string`
+`func (o *CustomerPost409Response) GetMessage() string`
 
-GetToken returns the Token field if non-nil, zero value otherwise.
+GetMessage returns the Message field if non-nil, zero value otherwise.
 
-### GetTokenOk
+### GetMessageOk
 
-`func (o *CustomerPost409Response) GetTokenOk() (*string, bool)`
+`func (o *CustomerPost409Response) GetMessageOk() (*string, bool)`
 
-GetTokenOk returns a tuple with the Token field if it's non-nil, zero value otherwise
+GetMessageOk returns a tuple with the Message field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetToken
+### SetMessage
 
-`func (o *CustomerPost409Response) SetToken(v string)`
+`func (o *CustomerPost409Response) SetMessage(v string)`
 
-SetToken sets Token field to given value.
+SetMessage sets Message field to given value.
 
-### HasToken
+### HasMessage
 
-`func (o *CustomerPost409Response) HasToken() bool`
+`func (o *CustomerPost409Response) HasMessage() bool`
 
-HasToken returns a boolean if a field has been set.
+HasMessage returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

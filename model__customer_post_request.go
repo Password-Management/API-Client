@@ -1,7 +1,7 @@
 /*
 Customer Creation API
 
-API's cerate customer in the database
+APIs to manage customers in the database.
 
 API version: 1.0.0
 Contact: sharmavivek1709@gmail.com

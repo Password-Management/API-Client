@@ -3,8 +3,8 @@
 #
 # Usage example: /bin/sh ./git_push.sh wing328 openapi-petstore-perl "minor update" "gitlab.com"
 
-git_user_id="vviveksharma"
-git_repo_id="Password-Management/API-Client"
+git_user_id=$1
+git_repo_id=$2
 release_note=$3
 git_host=$4
 
@@ -50,8 +50,8 @@ if [ "$git_remote" = "" ]; then # git remote not defined
 
 fi
 
-git pull origin main
+git pull origin master
 
 # Pushes (Forces) the changes in the local repository up to the remote repository
 echo "Git pushing to https://${git_host}/${git_user_id}/${git_repo_id}.git"
-git push origin main 2>&1 | grep -v 'To https'
+git push origin master 2>&1 | grep -v 'To https'
