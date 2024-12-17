@@ -91,8 +91,8 @@ func NewConfiguration() *Configuration {
 		Debug:            false,
 		Servers:          ServerConfigurations{
 			{
-				URL: "",
-				Description: "No description provided",
+				URL: "http://localhost:8001",
+				Description: "Local development server",
 			},
 		},
 		OperationServers: map[string]ServerConfigurations{

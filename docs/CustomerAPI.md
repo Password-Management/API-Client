@@ -1,6 +1,6 @@
 # \CustomerAPI
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:8001*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
