@@ -1,6 +1,6 @@
-module github.com/vviveksharma/PasswordManagerUI/demo-server/api-client
+module github.com/Password-Management/API-Client
 
-go 1.18
+go 1.23.3
 
 require github.com/stretchr/testify v1.10.0
 

@@ -13,9 +13,9 @@ import (
 	"context"
 	"testing"
 
+	openapiclient "github.com/Password-Management/API-Client"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	openapiclient "github.com/vviveksharma/PasswordManagerUI/demo-server/api-client"
 )
 
 func Test_openapi_CustomerAPIService(t *testing.T) {
